@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include<stdlib.h>
 
 int factorial(int number){
     if(number == 0 || number == 1) return 1;
@@ -12,7 +13,7 @@ int main() {
 
     if(number < 0) {
         printf("Factorial is not defined for negative numbers!\n");
-        return 1;  // exit the program
+        return 0;  // exit the program
     }
 
     printf("\nThe factorial of %d is %d\n", number, factorial(number));
