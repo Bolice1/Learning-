@@ -29,5 +29,8 @@ The programs in this repository include:
 
 ### My main principle
 
+#Komezusenge Bolice
+
 ```bash
-print("Build it, destroy it, then secure it")
+Build it, destroy it, then secure it  
+
