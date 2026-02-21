@@ -1,5 +1,14 @@
-# This a repo created to contain my daily learning programms including those created in 
-```bash c,c++,python,html,css,ruby,node,express```
-## The programms in this repo also includes some homeworks and revision exercises
-### My main principle is: 
-```bash print(build it,destroy it then secure it) ```
+# My Daily Learning Programs
+
+This repository contains the programs I create daily as part of my learning journey.  
+It includes programs written in the following languages:
+
+```bash
+C
+C++
+Python
+HTML
+CSS
+Ruby
+Node.js
+Express
