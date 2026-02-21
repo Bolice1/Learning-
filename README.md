@@ -12,10 +12,7 @@ CSS
 Ruby
 Node.js
 Express
-react
-tailwind
-bash 
-batch 
-```
-```bash 
-etc
+React
+Tailwind
+Bash
+Batch
