@@ -18,7 +18,6 @@ int main() {
         *(ptr + n - 1 - i) = temp;
     }
 
-    // Print reversed array
     for(int i = 0; i < n; i++) {
         printf("%d ", array[i]);
     }
