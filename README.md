@@ -1,5 +1,8 @@
 # My Daily Learning Programs
 
+<img src="https://readme-typing-svg.herokuapp.com?lines=Build+it;Attack+it;Secure+it!" />
+
+
 This repository contains the programs I create daily as part of my learning journey.  
 It includes programs written in the following technologies:
 
@@ -29,5 +32,8 @@ The programs in this repository include:
 
 ### My main principle
 
+#Komezusenge Bolice
+
 ```bash
-print("Build it, destroy it, then secure it")
+Build it, destroy it, then secure it  
+
