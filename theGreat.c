@@ -1,16 +1,15 @@
 #include <stdio.h>
 
-// Recursive function to find maximum element
+// Recursive function to find the greatest number
 int findMax(int arr[], int n) {
-    // Base case: if only one element
-    if (n == 1) {
+    // Base case
+    if (n == 1)
         return arr[0];
-    }
 
-    // Recursive call to find max in first n-1 elements
+    // Recursive call
     int max = findMax(arr, n - 1);
 
-    // Compare last element with max of previous elements
+    // Compare last element with current max
     if (arr[n - 1] > max)
         return arr[n - 1];
     else
@@ -18,12 +17,19 @@ int findMax(int arr[], int n) {
 }
 
 int main() {
-    int arr[] = {12, 45, 7, 89, 34, 23};
-    int n = sizeof(arr) / sizeof(arr[0]);
+    int arr[100], n, i;
 
-    int max = findMax(arr, n);
+    printf("Enter number of elements: ");
+    scanf("%d", &n);
 
-    printf("Greatest number in the array is: %d\n", max);
+    printf("Enter %d numbers:\n", n);
+    for(i = 0; i < n; i++) {
+        scanf("%d", &arr[i]);
+    }
+
+    int greatest = findMax(arr, n);
+
+    printf("The greatest number is: %d\n", greatest);
 
     return 0;
 }
