@@ -2,6 +2,10 @@ import express from 'express';
 import swaggerJsdoc from 'swagger-jsdoc';
 import swaggerUi from 'swagger-ui-express';
 
+// let use a simple array to store temporariy these books 
+
+const books = [];
+
 // let us setup the express app 
 
 const app = express();
@@ -10,7 +14,7 @@ const app = express();
 
 const swaggerOptions = {
     definition: {
-        swagger:"2.0",
+        swagger: "2.0",
         info: {
             title: "Library APIs",
             version: "1.0.0",
@@ -35,9 +39,9 @@ console.log(swaggerDocs)
  * 
  */
 
-app.use("/api-docs",swaggerUi.serve,swaggerUi.setup(swaggerDocs))
+app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocs))
 
- 
+
 // let us try to handle simple crud requests 
 
 
@@ -47,15 +51,34 @@ app.get("/books", (req, res) => {
 })
 // getting books according to their id 
 
-app.get("/books", (req, res) => {
-    const bookID = req.params
+// create a single book 
 
-    // check if it exists from the db 
+app.post("/books", (req, res) => {
 
-    const exists =
-        res.status(200).send({ msg: "Welcome to the books store" })
+    const { bookID, bookTitle, bookAuthor } = req.body;
+
+    // let us check whether the book exists or not 
+
+    const exists = books.find(b => b.id = bookID)
+
+    if (exists) { res.status(400).send({ error: "The book already exists" }) }
+    else {
+        const book = {
+            id: bookID,
+            title: bookTitle,
+            author: bookAuthor
+        };
+        // add the created book to the array list 
+
+
+        books.push(book)
+    }
+
+
+
+
+
 })
-
 // let us set up the port on which our program will run on 
 
 const PORT = process.env.PORT || 9783;
