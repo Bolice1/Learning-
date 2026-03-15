@@ -1,93 +1,117 @@
-import express from 'express';
-import swaggerJsdoc from 'swagger-jsdoc';
-import swaggerUi from 'swagger-ui-express';
-
-// let use a simple array to store temporariy these books 
-
-const books = [];
-
-// let us setup the express app 
+import express from "express";
+import swaggerJsdoc from "swagger-jsdoc";
+import swaggerUi from "swagger-ui-express";
 
 const app = express();
 
-// set up of the swagger options 
+// middleware to parse JSON bodies
+app.use(express.json());
 
+// temporary books storage
+const books = [];
+
+// Swagger configuration
 const swaggerOptions = {
-    definition: {
-        swagger: "2.0",
-        info: {
-            title: "Library APIs",
-            version: "1.0.0",
-        }
+  definition: {
+    swagger: "2.0",
+    info: {
+      title: "Library APIs",
+      version: "1.0.0",
+      description: "Simple API for managing books"
+    }
+  },
+  apis: ["App.js"]
+};
 
-    },
-    apis: ['App.js'],
-}
+const swaggerDocs = swaggerJsdoc(swaggerOptions);
 
-const swaggerDocs = swaggerJsdoc(swaggerOptions)
-console.log(swaggerDocs)
+// Swagger UI route
+app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocs));
 
-// swagger comments 
 /**
  * @swagger
  * /books:
  *   get:
- *     description: get all the books 
+ *     description: Get all books
  *     responses:
- *        200: 
- *          description: success
- * 
+ *       200:
+ *         description: Success
+ *   post:
+ *     description: Create a new book
+ *     parameters:
+ *       - in: body
+ *         name: book
+ *         description: Book object
+ *         required: true
+ *         schema:
+ *           type: object
+ *           properties:
+ *             bookID:
+ *               type: integer
+ *             bookTitle:
+ *               type: string
+ *             bookAuthor:
+ *               type: string
+ *     responses:
+ *       201:
+ *         description: Book created
+ *       400:
+ *         description: Book already exists
  */
 
-app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocs))
-
-
-// let us try to handle simple crud requests 
-
-
-
+// GET all books
 app.get("/books", (req, res) => {
-    res.status(200).send({ msg: "Welcome to the books store" })
-})
-// getting books according to their id 
+  res.status(200).send(books);
+});
 
-// create a single book 
-
+// CREATE book
 app.post("/books", (req, res) => {
 
-    const { bookID, bookTitle, bookAuthor } = req.body;
+  const { bookID, bookTitle, bookAuthor } = req.body;
 
-    // let us check whether the book exists or not 
+  const exists = books.find(b => b.id === bookID);
 
-    const exists = books.find(b => b.id = bookID)
+  if (exists) {
+    return res.status(400).send({
+      error: "The book already exists"
+    });
+  }
 
-    if (exists) { res.status(400).send({ error: "The book already exists" }) }
-    else {
-        const book = {
-            id: bookID,
-            title: bookTitle,
-            author: bookAuthor
-        };
-        // add the created book to the array list 
+  const book = {
+    id: bookID,
+    title: bookTitle,
+    author: bookAuthor
+  };
 
+  books.push(book);
 
-        books.push(book)
-    }
+  res.status(201).send({
+    message: "Book created successfully",
+    book: book
+  });
 
+});
 
+// GET book by ID
+app.get("/books/:id", (req, res) => {
 
+  const id = parseInt(req.params.id);
 
+  const book = books.find(b => b.id === id);
 
-})
-// let us set up the port on which our program will run on 
+  if (!book) {
+    return res.status(404).send({
+      error: "Book not found"
+    });
+  }
 
+  res.status(200).send(book);
+
+});
+
+// Server start
 const PORT = process.env.PORT || 9783;
 
 app.listen(PORT, () => {
-    (error) => {
-        if (error) {
-            console.log(`${error.error}`)
-        }
-    }
-    console.log(`Our program is runnig on the port: ${PORT}`)
-})
+  console.log(`Server running on port ${PORT}`);
+});
