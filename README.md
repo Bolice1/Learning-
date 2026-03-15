@@ -3,7 +3,7 @@
 This repository contains the programs I create daily as part of my learning journey.  
 **Contents**  
 The programs in this repository include:  
-- **Homework assignments**  
+- **Homework and assignments**  
 - **Revision exercises**  
 - **Mini projects** for practicing coding concepts  
 **My main principle**  
