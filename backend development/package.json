@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "This is a folder in which I test my newly learnt skills",
   "main": "App.js",
+  "type":"module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node App.js",
