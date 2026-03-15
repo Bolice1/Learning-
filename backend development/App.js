@@ -10,9 +10,10 @@ const app = express();
 
 const swaggerOptions = {
     definition: {
+        swagger:"2.0",
         info: {
             title: "Library APIs",
-            version: "1.0.0"
+            version: "1.0.0",
         }
 
     },
@@ -33,7 +34,13 @@ console.log(swaggerDocs)
  *          description: success
  * 
  */
+
+app.use("/api-docs",swaggerUi.serve,swaggerUi.setup(swaggerDocs))
+
+ 
 // let us try to handle simple crud requests 
+
+
 
 app.get("/books", (req, res) => {
     res.status(200).send({ msg: "Welcome to the books store" })
